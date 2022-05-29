@@ -34,36 +34,36 @@ int hash_byte(
     uint8_t * output_byte,
     const EVP_MD * (* evp_md)(void)
 ) {
-	EVP_MD_CTX * mdctx;
+    EVP_MD_CTX * mdctx;
 
     uint8_t input[2];
     input[0] = input_byte_0;
     input[1] = input_byte_1;
 
-	if ((mdctx = EVP_MD_CTX_new()) == NULL) {
+    if ((mdctx = EVP_MD_CTX_new()) == NULL) {
         return -1;
     }
 
-	if (1 != EVP_DigestInit_ex(mdctx, evp_md(), NULL)) {
-		return -1;
+    if (1 != EVP_DigestInit_ex(mdctx, evp_md(), NULL)) {
+        return -1;
     }
 
-	if (1 != EVP_DigestUpdate(mdctx, input, 2)) {
-		return -1;
+    if (1 != EVP_DigestUpdate(mdctx, input, 2)) {
+        return -1;
     }
 
     uint8_t * digest = malloc(EVP_MD_size(evp_md()));
 
-	if (digest == NULL) {
-		return -1;
-    }
-
-    unsigned int digest_len = 0;
-	if (1 != EVP_DigestFinal_ex(mdctx, digest, &digest_len)) {
+    if (digest == NULL) {
         return -1;
     }
 
-	EVP_MD_CTX_free(mdctx);
+    unsigned int digest_len = 0;
+    if (1 != EVP_DigestFinal_ex(mdctx, digest, &digest_len)) {
+        return -1;
+    }
+
+    EVP_MD_CTX_free(mdctx);
 
     *output_byte = digest[0];
 
