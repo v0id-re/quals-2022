@@ -26,3 +26,10 @@ Clone OPTEE-Build, build that, and
 cd challenge
 TA_DEV_KIT_DIR=<path-to-optee_os>/out/arm/export-ta_arm32> CROSS_COMPILE=<path-to-toolchains>/aarch32/bin/arm-linux-gnueabihf- make --no-builtin-variables
 ```
+
+Build solver
+
+```
+cd solve
+TEEC_EXPORT=<path-to-optee_client>/out/export/usr/lib/ CROSS_COMPILE=<path-to-toolchains>/aarch32/bin/arm-linux-gnueabihf- make --no-builtin-variables
+```
